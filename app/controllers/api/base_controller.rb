@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+class Api::BaseController < ApplicationController
+  include ApiException::Handler
+
+  protected
+
+  def authenticate_request!
+    header = request.headers['Authorization']
+    token = header.split(' ').last if header
+    begin
+      decoded = JWT.decode(token, 'your_secret_key', true, algorithm: 'HS256')
+      @current_user = User.find(decoded[0]['user_id'])
+    rescue JWT::DecodeError
+      render json: { message: 'Invalid token' }, status: :unauthorized
+    end
+  end
+end
