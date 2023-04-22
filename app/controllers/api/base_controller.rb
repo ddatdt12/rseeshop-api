@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ApplicationController
-  # include ApiException::Handler
+  include ApiException::Handler
 
   protected
 
