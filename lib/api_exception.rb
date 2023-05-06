@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiException
   module Handler
     def self.included(klass)
@@ -13,7 +15,7 @@ module ApiException
         end
 
         rescue_from ActiveRecord::RecordNotFound do |err|
-           render status: 404, json: { error_code: 404, message: "#{err.model} not found" }
+          render status: 404, json: { error_code: 404, message: "#{err.model} not found" }
         end
       end
     end
@@ -26,8 +28,8 @@ module ApiException
   class BadRequest < BaseError
     def initialize(msg = nil)
       @status_code = 400
-      @error_code = 40101
-      msg ||= "Bad request"
+      @error_code = 40_101
+      msg ||= 'Bad request'
       super
     end
   end
@@ -35,8 +37,8 @@ module ApiException
   class Unauthorized < BaseError
     def initialize(msg = nil)
       @status_code = 401
-      @error_code = 40101
-      msg ||= "Unauthorized"
+      @error_code = 40_101
+      msg ||= 'Unauthorized'
       super
     end
   end
@@ -44,8 +46,8 @@ module ApiException
   class Forbidden < BaseError
     def initialize(msg = nil)
       @status_code = 403
-      @error_code = 40101
-      msg ||= "Forbidden"
+      @error_code = 40_101
+      msg ||= 'Forbidden'
       super
     end
   end
@@ -53,8 +55,8 @@ module ApiException
   class NotFound < BaseError
     def initialize(msg = nil)
       @status_code = 404
-      @error_code = 40101
-      msg ||= "Not found"
+      @error_code = 40_101
+      msg ||= 'Not found'
       super
     end
   end
@@ -62,8 +64,8 @@ module ApiException
   class InternalServerError < BaseError
     def initialize(msg = nil)
       @status_code = 500
-      @error_code = 40101
-      msg ||= "Your own message in here"
+      @error_code = 40_101
+      msg ||= 'Your own message in here'
       super
     end
   end

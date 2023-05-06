@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -28,10 +30,14 @@ gem 'rack-cors'
 # Authentication
 gem 'jwt'
 
+# API support
+gem 'pagy', '~> 6.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'dotenv-rails'
   gem 'factory_bot', '~> 6.2', '>= 6.2.1'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -45,8 +51,6 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', require: false
-  gem 'dotenv-rails'
-  gem 'bullet'
 end
 
 group :development do

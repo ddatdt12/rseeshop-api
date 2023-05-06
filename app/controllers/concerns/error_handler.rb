@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Error module to Handle errors globally
 # include Error::ErrorHandler in application_controller.rb
 module ErrorHandler

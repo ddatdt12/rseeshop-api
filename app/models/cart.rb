@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Genre < ApplicationRecord
+class Cart < ApplicationRecord
 end
