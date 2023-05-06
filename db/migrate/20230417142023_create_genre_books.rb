@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGenreBooks < ActiveRecord::Migration[6.1]
   def change
     create_table :genre_books do |t|
