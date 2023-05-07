@@ -8,6 +8,6 @@ class IsbnGenre < ActiveRecord::Migration[6.1]
     end
 
     # composite primary key
-    add_index :isbn_genres, %(isbn genre), unique: true
+    add_index :isbn_genres, %i[isbn genre], unique: true
   end
 end
