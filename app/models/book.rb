@@ -3,7 +3,8 @@
 class Book < ApplicationRecord
   has_many :cart_items
   has_many :recently_viewed_books
-  has_many :reviews
+  has_many :order_items
+  has_many :orders, through: :order_items
 
   validates :title, presence: true
   validates :author, presence: true
