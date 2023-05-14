@@ -15,6 +15,16 @@ Rails.application.routes.draw do
     resources :genres, only: %i[index show]
     resources :authors, only: %i[index show]
     resources :users, only: %i[index]
+    resources :orders, only: %i[index show create] do
+      member do
+        post 'pay', to: 'orders#pay'
+      end
+    end
+
+    namespace :me do
+      resources :books, only: %i[index]
+    end
+
     scope :auth do
       get '', to: 'authentication#auth'
       post 'sign_in', to: 'authentication#sign_in'

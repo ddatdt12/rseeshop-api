@@ -6,6 +6,10 @@ module ErrorHandler
   def self.included(klass)
     klass.class_eval do
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+      rescue_from ActiveRecord::RecordInvalid do |e|
+        render json: { message: e.message }, status: :unprocessable_entity
+      end
     end
   end
 

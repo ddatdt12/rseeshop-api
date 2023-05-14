@@ -6,8 +6,8 @@ module Api
 
     protected
 
-    def render_success(data, meta: {}, message: 'Request success', status: :ok)
-      render json: { data:, message: }.merge(meta || {}), status:
+    def render_success(data, meta: {}, message: 'Request success', status: :ok, include: [])
+      render json: { data: data, message: message }.merge(meta || {}), status: status, include: include
     end
 
     def render_error(error = 'Server Error', status = :internal_server_error)
