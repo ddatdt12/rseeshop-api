@@ -17,6 +17,10 @@ module ApiException
         rescue_from ActiveRecord::RecordNotFound do |err|
           render status: 404, json: { error_code: 404, message: "#{err.model} not found" }
         end
+
+        rescue_from ActiveRecord::RecordInvalid do |err|
+          render status: :bad_request, json: { error_code: 400, message: err.message }
+        end
       end
     end
   end
