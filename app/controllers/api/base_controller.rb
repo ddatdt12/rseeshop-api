@@ -6,8 +6,16 @@ module Api
 
     protected
 
-    def render_success(data, meta: {}, message: 'Request success', status: :ok, include: [])
-      render json: { data: data, message: message }.merge(meta || {}), status: status, include: include
+    def render_success(data, meta: {}, message: 'Request success', serializer: nil, **options)
+      if serializer.present?
+        data = if data.is_a?(ActiveRecord::Relation) || data.is_a?(Array)
+                 data.map { |record| ActiveModelSerializers::SerializableResource.new(record, serializer:) }
+               else
+                 ActiveModelSerializers::SerializableResource.new(data, serializer:)
+               end
+      end
+
+      render json: { data:, message: }.merge(meta || {}), **options
     end
 
     def render_error(error = 'Server Error', status = :internal_server_error)

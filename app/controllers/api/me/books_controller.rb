@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module Me
     class BooksController < Api::BaseController

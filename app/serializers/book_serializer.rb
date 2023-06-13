@@ -24,30 +24,19 @@
 #
 #  index_books_on_isbn  (isbn) UNIQUE
 #
-class Book < ApplicationRecord
-  has_many :recently_viewed_books
 
-  attr_accessor :rating
-  attr_accessor :review_count
-
-
-  validates :title, presence: true
-  validates :author, presence: true
-  validates :genre, presence: true
-  validates :year, presence: true
-  validates :price, presence: true
-
-  def as_json(options = {})
-    super(options.merge({ except: %i[created_at updated_at] }))
-  end
-
+class BookSerializer < ActiveModel::Serializer
+  attributes :id, :isbn, :title, :description, :price, :author, :publisher, :year_of_publication, :image_s,
+             :image_m, :image_l, :tags, :rating, :review_count
   def tags
-    tag_str.split(';')
+    object.tags
   end
 
-  def related_books
-    return [] if related_book_str.blank?
-    isbns = related_book_str.split(';')
-    Book.where(isbn: isbns)
+  def rating
+    object.rating || 0
+  end
+
+  def review_count
+    object.review_count || 0
   end
 end

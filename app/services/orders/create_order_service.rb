@@ -2,7 +2,6 @@
 
 module Orders
   class CreateOrderService < ApplicationService
-
     # @param [integer] user_id
     # @param [array] book_ids
     # @return [Order]
@@ -15,12 +14,13 @@ module Orders
     end
 
     private
+
     attr_reader :user_id, :book_ids
 
     def perform
-      #create transaction
+      # create transaction
       Order.transaction do
-        order = Order.create!(user_id: user_id, order_items_attributes: book_ids.map { |book_id| { book_id: book_id } })
+        order = Order.create!(user_id:, order_items_attributes: book_ids.map { |book_id| { book_id: } })
 
         order
       end

@@ -8,7 +8,7 @@ module Api
       recently_viewed_books = RecentlyViewedBook.all.order('updated_at DESC').limit(10)
                                                 .where(user_id: @current_user.id).with_book.map(&:book)
 
-      render_success recently_viewed_books
+      render_success recently_viewed_books, serializer: BookSerializer
     end
   end
 end

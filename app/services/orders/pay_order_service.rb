@@ -2,7 +2,6 @@
 
 module Orders
   class PayOrderService < ApplicationService
-
     # @param [integer] order_id
     # @return nil
     # @raise [ActiveRecord::RecordInvalid]
