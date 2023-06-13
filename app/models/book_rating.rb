@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: book_reviews
+# Table name: book_ratings
 #
 #  id         :bigint           not null, primary key
 #  rating     :integer          default(0), not null
@@ -13,9 +13,9 @@
 #
 # Indexes
 #
-#  index_book_reviews_on_book_id              (book_id)
-#  index_book_reviews_on_book_id_and_user_id  (book_id,user_id) UNIQUE
-#  index_book_reviews_on_user_id              (user_id)
+#  index_book_ratings_on_book_id              (book_id)
+#  index_book_ratings_on_book_id_and_user_id  (book_id,user_id) UNIQUE
+#  index_book_ratings_on_user_id              (user_id)
 #
 # Foreign Keys
 #

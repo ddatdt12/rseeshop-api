@@ -15,7 +15,6 @@
 #
 # Indexes
 #
-#  index_email_user          (email) UNIQUE
 #  index_users_on_legacy_id  (legacy_id) UNIQUE
 #
 class UserSerializer < ActiveModel::Serializer
