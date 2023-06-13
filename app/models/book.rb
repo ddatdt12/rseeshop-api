@@ -5,7 +5,7 @@
 # Table name: books
 #
 #  id                  :bigint           not null, primary key
-#  author              :string(255)
+#  author              :string(255)      not null
 #  description         :string(255)      not null
 #  image_l             :string(255)
 #  image_m             :string(255)
@@ -14,20 +14,15 @@
 #  price               :integer          not null
 #  publisher           :string(255)      not null
 #  related_book_str    :text(65535)
-#  title               :string(1000)     not null
+#  tags                :string(255)      not null
+#  title               :string(255)      not null
 #  year_of_publication :integer          not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  author_id           :bigint           not null
 #
 # Indexes
 #
-#  index_books_on_author_id  (author_id)
-#  index_books_on_isbn       (isbn) UNIQUE
-#
-# Foreign Keys
-#
-#  fk_rails_...  (author_id => authors.id)
+#  index_books_on_isbn  (isbn) UNIQUE
 #
 class Book < ApplicationRecord
   has_many :recently_viewed_books
