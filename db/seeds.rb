@@ -8,8 +8,20 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Update user in the database with random email and name
-users = User.all
+users = User.where(email: '')
 
-users.each do |user|
-  user.update(email: Faker::Internet.email, name: Faker::Name.name, password: '123456')
+# create transaction to update user
+ActiveRecord::Base.transaction do
+  users.each do |user|
+    success = user.update(
+      email: Faker::Internet.email,
+      password: '123456',
+    )
+    puts "Updated user: #{user.id} #{success ? 'success' : 'failed'}"
+    if !success
+      puts user.errors.full_messages
+    end
+  end
 end
+
+puts 'Updated users'

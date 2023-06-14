@@ -6,7 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  author              :string(255)      not null
-#  description         :string(255)      not null
+#  description         :text(65535)      not null
 #  image_l             :string(255)
 #  image_m             :string(255)
 #  image_s             :string(255)
@@ -14,7 +14,7 @@
 #  price               :integer          not null
 #  publisher           :string(255)      not null
 #  related_book_str    :text(65535)
-#  tags                :string(255)      not null
+#  tag_str             :text(65535)      not null
 #  title               :string(255)      not null
 #  year_of_publication :integer          not null
 #  created_at          :datetime         not null
@@ -27,9 +27,9 @@
 
 class BookSerializer < ActiveModel::Serializer
   attributes :id, :isbn, :title, :description, :price, :author, :publisher, :year_of_publication, :image_s,
-             :image_m, :image_l, :tags, :rating, :review_count
+             :image_m, :image_l, :tags, :rating, :review_count, :genres
   def tags
-    object.tags
+    object.tag_str.split(',')
   end
 
   def rating

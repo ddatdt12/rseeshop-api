@@ -19,4 +19,6 @@
 #  fk_rails_...  (genre_id => genres.id)
 #
 class GenreBook < ApplicationRecord
+  belongs_to :book
+  belongs_to :genre
 end

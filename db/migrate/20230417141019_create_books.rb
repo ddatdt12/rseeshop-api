@@ -4,7 +4,7 @@ class CreateBooks < ActiveRecord::Migration[6.1]
   def change
     create_table :books do |t|
       t.string :title, null: false
-      t.string :description, null: false
+      t.text :description, null: false
       t.string :isbn, null: false
       t.integer :price, null: false
       t.integer :year_of_publication, null: false
@@ -12,7 +12,7 @@ class CreateBooks < ActiveRecord::Migration[6.1]
       t.string :image_s
       t.string :image_m
       t.string :image_l
-      t.string :tags, null: false
+      t.text :tag_str, null: false
       t.string :author, null: false
 
       t.timestamps

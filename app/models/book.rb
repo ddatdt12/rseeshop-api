@@ -6,7 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  author              :string(255)      not null
-#  description         :string(255)      not null
+#  description         :text(65535)      not null
 #  image_l             :string(255)
 #  image_m             :string(255)
 #  image_s             :string(255)
@@ -14,7 +14,7 @@
 #  price               :integer          not null
 #  publisher           :string(255)      not null
 #  related_book_str    :text(65535)
-#  tags                :string(255)      not null
+#  tag_str             :text(65535)      not null
 #  title               :string(255)      not null
 #  year_of_publication :integer          not null
 #  created_at          :datetime         not null
@@ -26,6 +26,8 @@
 #
 class Book < ApplicationRecord
   has_many :recently_viewed_books
+  has_many :genre_books
+  has_many :genres, through: :genre_books
 
   attr_accessor :rating
   attr_accessor :review_count
@@ -42,7 +44,7 @@ class Book < ApplicationRecord
   end
 
   def tags
-    tag_str.split(';')
+    tag_str&.split(';') || []
   end
 
   def related_books

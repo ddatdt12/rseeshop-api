@@ -17,6 +17,7 @@ development:
   <<: *default
   database: rseeshop_development
   url: mysql2://root:haitgl2021@directmail.c3dsxxaner1g.ap-northeast-1.rds.amazonaws.com:3306/spotlight-rsee
+
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
