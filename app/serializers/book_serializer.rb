@@ -29,7 +29,7 @@ class BookSerializer < ActiveModel::Serializer
   attributes :id, :isbn, :title, :description, :price, :author, :publisher, :year_of_publication, :image_s,
              :image_m, :image_l, :tags, :rating, :review_count, :genres
   def tags
-    object.tag_str.split(',')
+    object.tag_str.split(';')
   end
 
   def rating
