@@ -32,6 +32,8 @@ module Api
       if @current_user_id.present?
         RecentlyViewedBooks::UpdateService.call(user_id: @current_user_id,
                                                 book_id: @book.id)
+        user_rating = BookRating.find_by(user_id: @current_user_id, book_id: @book.id)&.rating
+        @book.user_rating = user_rating
       end
 
       render_success @book, serializer: BookSerializer
@@ -55,7 +57,7 @@ module Api
     private
 
     def set_book
-      @book = Book.find_by_id(params[:id])
+       @book = Book.find_by_id(params[:id])
 
       if @book.blank?
         render_error 'Book not found', :not_found

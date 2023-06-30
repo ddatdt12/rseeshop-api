@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_13_111614) do
+ActiveRecord::Schema.define(version: 2023_06_30_153125) do
 
-  create_table "book_ratings", charset: "utf8mb4", force: :cascade do |t|
+  create_table "book_ratings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
     t.integer "rating", default: 0, null: false
@@ -23,25 +23,27 @@ ActiveRecord::Schema.define(version: 2023_06_13_111614) do
     t.index ["user_id"], name: "index_book_ratings_on_user_id"
   end
 
-  create_table "books", charset: "utf8mb4", force: :cascade do |t|
+  create_table "books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.string "isbn", null: false
+    t.string "isbn", limit: 20, null: false
     t.integer "price", null: false
     t.integer "year_of_publication", null: false
     t.string "publisher", null: false
     t.string "image_s"
     t.string "image_m"
     t.string "image_l"
-    t.text "tag_str", null: false
     t.string "author", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "related_book_str"
+    t.text "tag_str"
+    t.integer "rating_count", default: 0
+    t.float "rating_avg", default: 0.0
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
   end
 
-  create_table "favorite_books", charset: "utf8mb4", force: :cascade do |t|
+  create_table "favorite_books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -50,19 +52,19 @@ ActiveRecord::Schema.define(version: 2023_06_13_111614) do
     t.index ["user_id"], name: "index_favorite_books_on_user_id"
   end
 
-  create_table "genre_books", charset: "utf8mb4", force: :cascade do |t|
+  create_table "genre_books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "genre_id", null: false
     t.bigint "book_id", null: false
     t.index ["book_id"], name: "index_genre_books_on_book_id"
     t.index ["genre_id"], name: "index_genre_books_on_genre_id"
   end
 
-  create_table "genres", charset: "utf8mb4", force: :cascade do |t|
+  create_table "genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_genres_on_name", unique: true
   end
 
-  create_table "recently_viewed_books", charset: "utf8mb4", force: :cascade do |t|
+  create_table "recently_viewed_books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -71,7 +73,7 @@ ActiveRecord::Schema.define(version: 2023_06_13_111614) do
     t.index ["user_id"], name: "index_recently_viewed_books_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -79,7 +81,6 @@ ActiveRecord::Schema.define(version: 2023_06_13_111614) do
     t.string "name"
     t.string "favorite_genre"
     t.integer "legacy_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["legacy_id"], name: "index_users_on_legacy_id", unique: true
   end
 

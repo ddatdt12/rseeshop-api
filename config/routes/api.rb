@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :book_ratings, only: %i[index create] do
       collection do
         post '', to: 'book_ratings#create_or_update'
+        get 'format', to: 'book_ratings#format'
       end
     end
 

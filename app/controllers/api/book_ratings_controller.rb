@@ -30,18 +30,35 @@ module Api
       render_success bookRatings, meta:, serializer: BookRatingSerializer
     end
 
-    def create_or_update
-      if @bookReview.update(rating: params[:rating])
-        render_success @bookReview, serializer: BookRatingSerializer
+    def format
+      bookRatings = BookRating.includes(:book).where(user_id: @current_user.id)
+
+      if params[:sort].present?
+        sort_by = params[:sort].split(',')
+        bookRatings = bookRatings.order(sort_by)
       else
-        render_error @bookReview.errors.full_messages.join(', ')
+        bookRatings = bookRatings.order(created_at: :desc)
+      end
+
+      isbn_ratings = bookRatings.each_with_object({}) do |bookRating, hash|
+        hash[bookRating.book.isbn] = bookRating.rating
+      end
+
+      render_success isbn_ratings
+    end
+
+    def create_or_update
+      if @bookRating.update(rating: params[:rating])
+        render_success @bookRating, serializer: BookRatingSerializer
+      else
+        render_error @bookRating.errors.full_messages.join(', ')
       end
     end
 
     private
 
     def set_book_rating
-      @bookReview = BookRating.find_or_create_by(book_id: params[:book_id], user_id: @current_user.id) do |book_review|
+      @bookRating = BookRating.find_or_create_by(book_id: params[:book_id], user_id: @current_user.id) do |book_review|
         book_review.rating = params[:rating]
       end
     end
