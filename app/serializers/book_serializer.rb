@@ -24,7 +24,8 @@
 #
 # Indexes
 #
-#  index_books_on_isbn  (isbn) UNIQUE
+#  index_books_on_isbn        (isbn) UNIQUE
+#  index_books_on_rating_avg  (rating_avg)
 #
 
 class BookSerializer < ActiveModel::Serializer

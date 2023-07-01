@@ -44,14 +44,9 @@ module Api
     end
 
     def top_rated_books
-      bookRatings = BookRating.group(:book_id).order('avg(rating) desc').limit(10).average(:rating)
-      bookRatings = bookRatings.map do |book_id, rating|
-        book = Book.find_by_id(book_id)
-        book.rating = rating
-        book
-      end
+      books = Book.order(rating_avg: :desc).limit(10)
 
-      render_success bookRatings, serializer: BookSerializer
+      render_success books, serializer: BookSerializer
     end
 
     private
