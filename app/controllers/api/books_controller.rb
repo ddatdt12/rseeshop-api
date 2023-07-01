@@ -13,6 +13,10 @@ module Api
         books = books.order(sort_by)
       end
 
+      if params[:isbns].present?
+        books = books.where(isbn: params[:isbns].split(','))
+      end
+
       # Pagination with Pagy
       @pagy, books = pagy(books, items: params[:per_page])
 
