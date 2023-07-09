@@ -74,7 +74,6 @@ module Api
       end
 
       # Cân phân biệt rating thích ghét
-
       books = Book.where(id: book_ids).order(rating_avg: :desc).limit(10)
       recommended_book_isbns = Set.new(books.pluck(:related_book_str).map { |str| str.split(';') }.flatten).to_a.sample(20)
       recommended_books = Book.where(isbn: recommended_book_isbns).order(rating_avg: :desc)

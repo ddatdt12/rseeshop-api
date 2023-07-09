@@ -19,8 +19,4 @@
 #
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :email, :name, :created_at, :updated_at, :favorite_genres
-
-  def favorite_genres
-    object.favorite_genre&.split(';') || []
-  end
 end

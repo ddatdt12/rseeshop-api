@@ -16,7 +16,7 @@ module Api
       private
 
       def user_params
-        params.permit(:name, :email, favorite_genres: [])
+        params.permit(:name, :email, favorite_genre_ids: [])
       end
     end
   end

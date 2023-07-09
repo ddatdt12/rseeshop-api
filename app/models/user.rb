@@ -34,14 +34,19 @@ class User < ApplicationRecord
     super(options.merge({ except: [:password_digest] }))
   end
 
-  def favorite_genres=(genres)
-    self.favorite_genre = genres.join(';')
+  def favorite_genre_ids=(genre_ids)
+    self.favorite_genre = genre_ids.join(';')
   end
 
+  def favorite_genre_ids
+    return [] unless favorite_genre
+
+    favorite_genre.split(';')
+  end
   def favorite_genres
     return [] unless favorite_genre
 
-    Genre.where(name: favorite_genre.split(';'))
+    Genre.where(id: favorite_genre_ids)
   end
 
   private
@@ -49,8 +54,8 @@ class User < ApplicationRecord
   def validate_favorite_genre
     return unless favorite_genre
 
-    genres = favorite_genre.split(';')
-    return if Genre.where(name: genres).count == genres.count
+    genre_ids = favorite_genre.split(';')
+    return if Genre.where(id: genre_ids).count == genre_ids.count
 
     errors.add(:favorite_genre, 'is invalid')
   end
