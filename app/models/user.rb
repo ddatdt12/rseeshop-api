@@ -21,7 +21,6 @@ class User < ApplicationRecord
   has_secure_password
   has_many :recently_viewed_books
   has_many :book_ratings
-  has_many :books, through: :book_users
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
@@ -37,6 +36,12 @@ class User < ApplicationRecord
 
   def favorite_genres=(genres)
     self.favorite_genre = genres.join(';')
+  end
+
+  def favorite_genres
+    return [] unless favorite_genre
+
+    Genre.where(name: favorite_genre.split(';'))
   end
 
   private

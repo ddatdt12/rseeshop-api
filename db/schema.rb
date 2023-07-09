@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_01_052023) do
+ActiveRecord::Schema.define(version: 2023_07_09_044304) do
 
   create_table "book_ratings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2023_07_01_052023) do
     t.text "tag_str"
     t.integer "rating_count", default: 0
     t.float "rating_avg", default: 0.0
+    t.string "item_related_book_str"
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
     t.index ["rating_avg"], name: "index_books_on_rating_avg"
   end
