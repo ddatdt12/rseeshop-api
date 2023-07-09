@@ -4,7 +4,7 @@ module Api
   class BooksController < Api::BaseController
     include Pagy::Backend
     before_action :attempt_get_user_id, only: [:show, :related_books]
-    before_action :set_book, only: [:show, :item_based]
+    before_action :set_book, only: [:show, :item_based, :related_books]
     before_action :authenticate_request!, only: [:get_books_by_favorate_genres]
     def index
       books = Book.all
@@ -57,10 +57,17 @@ module Api
     def get_books_by_favorate_genres
       user_genre_ids = @current_user.favorite_genres.pluck(:id)
 
-      user_genre_ids.each_with_object([]) do |genre_id, books|
+      if user_genre_ids.count < 1
+        return render_error 'Please choose your favorite genres', :bad_request
+      end
+
+      item_count_each_genre = (10 / user_genre_ids.count).round
+
+      books_of_each_genre = user_genre_ids.each_with_object([]) do |genre_id, books|
         books << Book.includes(:genres).where(genres: { id: genre_id }).order(rating_avg: :desc).limit(10)
       end
 
+      books = books_of_each_genre.map { |books| books.sample(item_count_each_genre) }.flatten
       render_success books.sample(10), serializer: BookSerializer
     end
 
