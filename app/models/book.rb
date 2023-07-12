@@ -49,6 +49,12 @@ class Book < ApplicationRecord
     isbns = related_book_str.split(';')
     Book.where(isbn: isbns)
   end
+  
+  def item_based_books
+    return [] if item_related_book_str.blank?
+    isbns = item_related_book_str.split(';')
+    Book.where(isbn: isbns)
+  end
 
   def related_book_isbns
     return [] if related_book_str.blank?

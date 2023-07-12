@@ -89,7 +89,7 @@ module Api
     end
 
     def item_based
-      render_success @book.related_books, serializer: BookSerializer
+      render_success @book.item_based_books, serializer: BookSerializer
     end
 
     private
